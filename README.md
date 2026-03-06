@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Discord Clone - Fullstack Real-time Communication Platform
 
-## Getting Started
+![Discord Clone Banner](https://raw.githubusercontent.com/AntonioErdeljac/next13-discord-clone/main/public/images/banner.png)
 
-First, run the development server:
+A high-performance, fullstack Discord clone built with **Next.js 14**, **React**, **Socket.io**, **Prisma**, **MongoDB**, and **Tailwind CSS**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Real-time Messaging**: Instant communication using Socket.io.
+- **Direct Messages**: 1-on-1 private conversations between members.
+- **Media Channels**: High-quality Video and Audio calls powered by **LiveKit**.
+- **Attachment Support**: Send images and PDF files easily via **UploadThing**.
+- **Message Management**: Edit and delete messages in real-time for all users.
+- **Server Management**:
+  - Create and customize servers (Name, Image).
+  - Invite system with unique, regeneratable links.
+  - Role-based membership (Admin, Moderator, Guest).
+  - Member management (Kick, Role changing).
+- **Channel System**:
+  - Categorized channels (Text, Audio, Video).
+  - Full CRUD for channels and categories.
+- **Optimized UI/UX**:
+  - **Light/Dark Mode** support.
+  - **Emoji Picker** integrated into the chat.
+  - **Server Search** (CMD+K) for quick navigation.
+  - Infinite loading for messages via **TanStack Query**.
+  - Smart auto-scroll and scroll-to-load logic.
+- **Responsive Design**: Fully mobile-optimized with beautiful sidebars and modals.
+- **Authentication**: Secure user management with **Clerk**.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Frontend**: Next.js 14, React, Tailwind CSS, Shadcn UI, Lucide Icons, Zustand.
+- **Backend**: Next.js API Routes (App Router & Pages Router for Sockets).
+- **Database**: MongoDB with Prisma ORM.
+- **Real-time**: Socket.io, LiveKit (WebRTC).
+- **File Storage**: UploadThing.
+- **Auth**: Clerk.
 
-## Learn More
+## 🛠️ Getting Started
 
-To learn more about Next.js, take a look at the following resources:
+### Prerequisites
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Node.js 18+ 
+- MongoDB instance (Atlas or local)
+- Clerk, UploadThing, and LiveKit accounts for API keys.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Installation
 
-## Deploy on Vercel
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/discord-clone.git
+   cd discord-clone
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **Set up Environment Variables**:
+   Create a `.env` file in the root directory and add the following:
+   ```env
+   DATABASE_URL=
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+   CLERK_SECRET_KEY=
+   NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+   NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+   UPLOADTHING_TOKEN=
+   NEXT_PUBLIC_SITE_URL=http://localhost:3000
+
+   LIVEKIT_API_KEY=
+   LIVEKIT_API_SECRET=
+   NEXT_PUBLIC_LIVEKIT_URL=
+   ```
+
+4. **Initialize Prisma**:
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
+
+5. **Start the development server**:
+   ```bash
+   npm run dev
+   ```
+
+## 📄 License
+
+This project is licensed under the MIT License.
