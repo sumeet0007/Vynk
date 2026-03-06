@@ -31,9 +31,6 @@ const ServerIdPage = async ({ params }: ServerIdPageProps) => {
         },
         include: {
             channels: {
-                where: {
-                    name: "general"
-                },
                 orderBy: {
                     createdAt: "asc"
                 }
@@ -45,20 +42,23 @@ const ServerIdPage = async ({ params }: ServerIdPageProps) => {
         return redirect("/");
     }
 
-    // Usually, landing on a server immediately takes you to the 'general' channel
-    const initialChannel = server.channels[0];
-    if (initialChannel?.id !== "general") {
-        return redirect(`/servers/${server.id}/channels/${initialChannel?.id}`);
+    // Prefer a "general" channel if it exists, otherwise fall back to the first channel
+    const generalChannel = server.channels.find((channel) => channel.name === "general");
+    const initialChannel = generalChannel ?? server.channels[0];
+
+    if (!initialChannel) {
+        // No channels exist yet for this server, so keep the user on a simple landing screen.
+        return (
+            <div className="flex h-screen w-full items-center justify-center bg-discord-bg text-discord-text">
+                <div className="flex flex-col text-center">
+                    <h1 className="text-3xl font-bold mb-4">Welcome to {server.name}!</h1>
+                    <p className="text-zinc-400">No channels have been created yet.</p>
+                </div>
+            </div>
+        );
     }
 
-    return (
-        <div className="flex h-screen w-full items-center justify-center bg-discord-bg text-discord-text">
-            <div className="flex flex-col text-center">
-                <h1 className="text-3xl font-bold mb-4">Welcome to {server.name}!</h1>
-                <p className="text-zinc-400">Your server ID is: {server.id}</p>
-            </div>
-        </div>
-    );
+    return redirect(`/servers/${server.id}/channels/${initialChannel.id}`);
 }
 
 export default ServerIdPage;

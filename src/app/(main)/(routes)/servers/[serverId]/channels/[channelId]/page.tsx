@@ -28,23 +28,28 @@ const ChannelIdPage = async ({
 
     const { serverId, channelId } = await params;
 
-    const channel = await db.channel.findUnique({
-        where: {
-            id: channelId,
-        },
-    });
-
     const member = await db.member.findFirst({
         where: {
-            serverId: serverId,
+            serverId,
             profile: {
                 userId: user.id,
             }
         }
     });
 
-    if (!channel || !member) {
+    if (!member) {
         return redirect("/");
+    }
+
+    const channel = await db.channel.findFirst({
+        where: {
+            id: channelId,
+            serverId,
+        },
+    });
+
+    if (!channel) {
+        return redirect(`/servers/${serverId}`);
     }
 
     return (

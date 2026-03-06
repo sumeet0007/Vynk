@@ -30,7 +30,7 @@ const MemberIdPage = async ({
 
     const currentMember = await db.member.findFirst({
         where: {
-            serverId: serverId,
+            serverId,
             profileId: profile.id,
         },
         include: {
@@ -42,7 +42,21 @@ const MemberIdPage = async ({
         return redirect("/");
     }
 
-    const conversation = await getOrCreateConversation(currentMember.id, memberId);
+    const otherMember = await db.member.findFirst({
+        where: {
+            id: memberId,
+            serverId,
+        },
+        include: {
+            profile: true,
+        }
+    });
+
+    if (!otherMember) {
+        return redirect(`/servers/${serverId}`);
+    }
+
+    const conversation = await getOrCreateConversation(currentMember.id, otherMember.id);
 
     if (!conversation) {
         return redirect(`/servers/${serverId}`);
@@ -50,15 +64,16 @@ const MemberIdPage = async ({
 
     const { memberOne, memberTwo } = conversation;
 
-    const otherMember = memberOne.profileId === profile.id ? memberTwo : memberOne;
+    const isMemberOneCurrentUser = memberOne.profileId === profile.id;
+    const conversationOtherMember = isMemberOneCurrentUser ? memberTwo : memberOne;
 
     return (
         <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
             <ChatHeader
-                name={otherMember.profile.name}
+                name={conversationOtherMember.profile.name}
                 serverId={serverId}
                 type="conversation"
-                imageUrl={otherMember.profile.imageUrl}
+                imageUrl={conversationOtherMember.profile.imageUrl}
             >
                 <div className="w-[72px]">
                     <NavigationSidebar />
@@ -70,7 +85,7 @@ const MemberIdPage = async ({
             <ChatMessages
                 variant="conversation"
                 member={currentMember}
-                name={otherMember.profile.name}
+                name={conversationOtherMember.profile.name}
                 chatId={conversation.id}
                 type="conversation"
                 apiUrl="/api/direct-messages"
@@ -82,7 +97,7 @@ const MemberIdPage = async ({
                 }}
             />
             <ChatInput
-                name={otherMember.profile.name}
+                name={conversationOtherMember.profile.name}
                 type="conversation"
                 apiUrl="/api/socket/direct-messages"
                 query={{

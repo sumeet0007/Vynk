@@ -67,7 +67,11 @@ export const InitialModal = () => {
     };
 
     if (!isMounted) {
-        return null;
+        return (
+            <div className="flex h-screen w-screen items-center justify-center bg-discord-bg">
+                <p className="text-sm text-zinc-400">Loading your server setup...</p>
+            </div>
+        );
     }
 
     return (
