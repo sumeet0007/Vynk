@@ -42,28 +42,29 @@ export const LeaveServerModal = () => {
 
     return (
         <Dialog open={isModalOpen} onOpenChange={onClose}>
-            <DialogContent className="bg-white text-black p-0 overflow-hidden">
+            <DialogContent className="bg-white dark:bg-[#313338] text-black dark:text-[#DBDEE1] p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-2xl text-center font-bold">
                         Leave Server
                     </DialogTitle>
-                    <DialogDescription className="text-center text-zinc-500">
-                        Are you sure you want to leave <span className="font-semibold text-indigo-500">{server?.name}</span>?
+                    <DialogDescription className="text-center text-zinc-500 dark:text-zinc-400">
+                        Are you sure you want to leave <span className="font-semibold text-indigo-500 dark:text-indigo-400">{server?.name}</span>?
                     </DialogDescription>
                 </DialogHeader>
-                <DialogFooter className="bg-gray-100 px-6 py-4">
+                <DialogFooter className="bg-gray-100 dark:bg-[#2B2D31] px-6 py-4">
                     <div className="flex items-center justify-between w-full">
                         <Button
                             disabled={isLoading}
                             onClick={onClose}
                             variant="ghost"
+                            className="dark:hover:bg-zinc-700/50"
                         >
                             Cancel
                         </Button>
                         <Button
                             disabled={isLoading}
                             variant="default"
-                            className="bg-rose-500 text-white hover:bg-rose-600"
+                            className="bg-rose-500 text-white hover:bg-rose-600 border-none"
                             onClick={onClick}
                         >
                             Confirm

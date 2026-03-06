@@ -96,7 +96,7 @@ export const MembersModal = () => {
 
     return (
         <Dialog open={isModalOpen} onOpenChange={onClose}>
-            <DialogContent className="bg-white text-black overflow-hidden">
+            <DialogContent className="bg-white dark:bg-[#313338] text-black dark:text-[#DBDEE1] overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-2xl text-center font-bold">
                         Manage Members
@@ -116,7 +116,7 @@ export const MembersModal = () => {
                                     {member.profile.name}
                                     {roleIconMap[member.role as MemberRole]}
                                 </div>
-                                <p className="text-xs text-zinc-500">
+                                <p className="text-xs text-zinc-500 dark:text-zinc-400">
                                     {member.profile.email}
                                 </p>
                             </div>

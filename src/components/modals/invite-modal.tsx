@@ -24,7 +24,6 @@ export const InviteModal = () => {
     const [copied, setCopied] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    // Fallback to origin window just in case Next.js hasn't fully hydrated
     const origin = typeof window !== "undefined" && window.location.origin ? window.location.origin : "";
     const inviteUrl = `${origin}/invite/${server?.inviteCode}`;
 
@@ -52,7 +51,7 @@ export const InviteModal = () => {
 
     return (
         <Dialog open={isModalOpen} onOpenChange={onClose}>
-            <DialogContent className="bg-white text-black p-0 overflow-hidden">
+            <DialogContent className="bg-white dark:bg-[#313338] text-black dark:text-[#DBDEE1] p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-2xl text-center font-bold">
                         Invite Friends
@@ -60,18 +59,18 @@ export const InviteModal = () => {
                 </DialogHeader>
                 <div className="p-6">
                     <Label
-                        className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70"
+                        className="uppercase text-xs font-bold text-zinc-500 dark:text-zinc-400"
                     >
                         Server invite link
                     </Label>
                     <div className="flex items-center mt-2 gap-x-2">
                         <Input
                             disabled={isLoading}
-                            className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+                            className="bg-zinc-300/50 dark:bg-zinc-700/50 border-0 focus-visible:ring-0 text-black dark:text-[#DBDEE1] focus-visible:ring-offset-0"
                             value={inviteUrl}
                             readOnly
                         />
-                        <Button disabled={isLoading} onClick={onCopy} size="icon">
+                        <Button disabled={isLoading} onClick={onCopy} size="icon" className="bg-indigo-500 text-white hover:bg-indigo-600 transition">
                             {copied
                                 ? <Check className="w-4 h-4 text-emerald-500" />
                                 : <Copy className="w-4 h-4" />
@@ -83,7 +82,7 @@ export const InviteModal = () => {
                         disabled={isLoading}
                         variant="link"
                         size="sm"
-                        className="text-xs text-zinc-500 mt-4"
+                        className="text-xs text-zinc-500 dark:text-zinc-400 mt-4 px-0"
                     >
                         Generate a new link
                         <RefreshCw className="w-4 h-4 ml-2" />

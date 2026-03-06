@@ -7,12 +7,14 @@ import { ChatHeader } from "@/components/chat/chat-header";
 import { ChatInput } from "@/components/chat/chat-input";
 import { ChatMessages } from "@/components/chat/chat-messages";
 import { MediaRoom } from "@/components/media-room";
+import { NavigationSidebar } from "@/components/navigation/navigation-sidebar";
+import { ServerSidebar } from "@/components/server/server-sidebar";
 
 interface ChannelIdPageProps {
-    params: {
+    params: Promise<{
         serverId: string;
         channelId: string;
-    }
+    }>
 }
 
 const ChannelIdPage = async ({
@@ -51,7 +53,14 @@ const ChannelIdPage = async ({
                 name={channel.name}
                 serverId={channel.serverId}
                 type="channel"
-            />
+            >
+                <div className="w-[72px]">
+                    <NavigationSidebar />
+                </div>
+                <div className="flex-1 bg-[#F2F3F5] dark:bg-[#2B2D31]">
+                    <ServerSidebar serverId={channel.serverId} />
+                </div>
+            </ChatHeader>
             {channel.type === ChannelType.TEXT && (
                 <>
                     <ChatMessages
@@ -98,4 +107,3 @@ const ChannelIdPage = async ({
 }
 
 export default ChannelIdPage;
-

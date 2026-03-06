@@ -7,12 +7,14 @@ import { currentProfile } from "@/lib/current-profile";
 import { ChatHeader } from "@/components/chat/chat-header";
 import { ChatMessages } from "@/components/chat/chat-messages";
 import { ChatInput } from "@/components/chat/chat-input";
+import { NavigationSidebar } from "@/components/navigation/navigation-sidebar";
+import { ServerSidebar } from "@/components/server/server-sidebar";
 
 interface MemberIdPageProps {
-    params: {
+    params: Promise<{
         memberId: string;
         serverId: string;
-    }
+    }>
 }
 
 const MemberIdPage = async ({
@@ -57,7 +59,14 @@ const MemberIdPage = async ({
                 serverId={serverId}
                 type="conversation"
                 imageUrl={otherMember.profile.imageUrl}
-            />
+            >
+                <div className="w-[72px]">
+                    <NavigationSidebar />
+                </div>
+                <div className="flex-1 bg-[#F2F3F5] dark:bg-[#2B2D31]">
+                    <ServerSidebar serverId={serverId} />
+                </div>
+            </ChatHeader>
             <ChatMessages
                 variant="conversation"
                 member={currentMember}
